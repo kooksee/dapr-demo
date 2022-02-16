@@ -9,6 +9,7 @@ import (
 
 	"google.golang.org/grpc"
 	pb "google.golang.org/grpc/examples/helloworld/helloworld"
+	"google.golang.org/grpc/metadata"
 )
 
 var (
@@ -22,6 +23,13 @@ type server struct {
 
 // SayHello implements helloworld.GreeterServer
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	// 获取客户端metadata
+	// map[:authority:[127.0.0.1:50051] content-type:[application/grpc+proto] dapr-app-id:[server0] grpc-trace-bin:[��      �ВR�}п��@!Zj��tp] user-agent:[grpc-go/1.40.0]]
+	var md, ok = metadata.FromIncomingContext(ctx)
+	if ok {
+		fmt.Println(md)
+	}
+
 	log.Printf("Received: %v", in.GetName())
 	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
 }

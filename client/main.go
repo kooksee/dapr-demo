@@ -29,6 +29,7 @@ func main() {
 	c := pb.NewGreeterClient(conn)
 
 	for i := 0; ; i++ {
+		// dapr-app-id Identify different services
 		ctx := metadata.AppendToOutgoingContext(context.Background(), "dapr-app-id", fmt.Sprintf("server%d", i%2))
 		r, err := c.SayHello(ctx, &pb.HelloRequest{Name: fmt.Sprintf("Darth Tyrannus=>%d", i)})
 		if err != nil {
