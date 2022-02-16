@@ -1,0 +1,18 @@
+# Vendoring directory
+vendor/
+
+# dlv debug output
+debug*
+*.out
+
+configs/local*
+logs/
+
+*.temp
+
+# misc
+.idea/
+.vscode
+.DS_Store
+server.log
+.docker.key
